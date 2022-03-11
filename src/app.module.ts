@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Task } from './tasks/entities/task.entity';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
@@ -14,8 +13,12 @@ import { TasksModule } from './tasks/tasks.module';
       username: 'root',
       password: '',
       database: 'nest-sample-app',
-      entities: [Task],
-      synchronize: true,
+      migrationsTableName: 'migrations',
+      entities: ['dist/src/entities/*.js'],
+      migrations: ['dist/migrations/*.js'],
+      cli: {
+        migrationsDir: 'migrations',
+      },
     }),
     TasksModule,
   ],
