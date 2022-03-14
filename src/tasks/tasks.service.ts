@@ -13,4 +13,8 @@ export class TasksService {
   findAll(): Promise<Task[]> {
     return this.tasksRepository.find();
   }
+
+  async create(title: string): Promise<void> {
+    await this.tasksRepository.insert({ title });
+  }
 }
